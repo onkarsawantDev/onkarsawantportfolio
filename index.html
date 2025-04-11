@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Onkar Sawant | Portfolio</title>
+    <style>
+      :root {
+        --bg-color: linear-gradient(to right, #1f1c2c, #928dab);
+        --text-color: white;
+        --card-bg: #3a3657;
+        --highlight: #ff9a9e;
+      }
+      body {
+        margin: 0;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: var(--bg-color);
+        color: var(--text-color);
+        scroll-behavior: smooth;
+        transition: background 0.4s, color 0.4s;
+      }
+
+      .dark-mode {
+        --bg-color: linear-gradient(to right, #141e30, #243b55);
+        --text-color: #eee;
+        --card-bg: #2c2f4a;
+        --highlight: #70e1f5;
+      }
+
+      nav {
+        position: fixed;
+        width: 100%;
+        top: 0;
+        background: rgba(0, 0, 0, 0.7);
+        padding: 1rem 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 1000;
+      }
+
+      nav a {
+        color: var(--text-color);
+        margin: 0 1rem;
+        text-decoration: none;
+        font-weight: bold;
+        transition: color 0.3s;
+      }
+
+      nav a:hover {
+        color: var(--highlight);
+      }
+
+      .toggle-btn {
+        background: none;
+        border: 2px solid var(--text-color);
+        border-radius: 5px;
+        padding: 0.4rem 0.8rem;
+        color: var(--text-color);
+        cursor: pointer;
+      }
+
+      .hero {
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 2rem;
+        animation: fadeIn 1.5s ease-in;
+      }
+
+      .hero h1 {
+        font-size: 3rem;
+        margin: 0.5rem 0;
+      }
+
+      .highlight {
+        color: var(--highlight);
+        background: -webkit-linear-gradient(45deg, var(--highlight), #fad0c4);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .typing-text {
+        font-size: 1.2rem;
+        color: #ccc;
+        margin-bottom: 1rem;
+      }
+
+      .cta {
+        padding: 0.8rem 1.5rem;
+        background-color: #ff758c;
+        color: white;
+        border: none;
+        border-radius: 30px;
+        text-decoration: none;
+        font-weight: bold;
+        transition: background 0.3s ease;
+      }
+
+      .cta:hover {
+        background-color: #ff5e6c;
+      }
+
+      section {
+        padding: 4rem 2rem;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.6s ease;
+      }
+
+      section.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .projects,
+      .about,
+      .interview,
+      .study,
+      .contact,
+      .skills {
+        background-color: #2d2a4a;
+      }
+
+      .section-title {
+        text-align: center;
+        margin-bottom: 2rem;
+        font-size: 2rem;
+      }
+
+      .project-grid,
+      .qa-list,
+      .study-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2rem;
+      }
+
+      .project-card,
+      .qa-card,
+      .study-card {
+        background: var(--card-bg);
+        padding: 1.5rem;
+        border-radius: 12px;
+        transition: transform 0.3s;
+        cursor: pointer;
+      }
+
+      .project-card:hover,
+      .qa-card:hover,
+      .study-card:hover {
+        transform: translateY(-5px);
+      }
+
+      .skills-container {
+        display: flex;
+        overflow-x: auto;
+        gap: 1.5rem;
+        padding: 1rem;
+        scroll-snap-type: x mandatory;
+      }
+
+      .skills-container::-webkit-scrollbar {
+        height: 6px;
+      }
+
+      .skills-container::-webkit-scrollbar-thumb {
+        background-color: #888;
+        border-radius: 3px;
+      }
+
+      .skill-badge {
+        min-width: 100px;
+        background: var(--card-bg);
+        color: var(--highlight);
+        padding: 1rem;
+        text-align: center;
+        border-radius: 10px;
+        font-weight: bold;
+        scroll-snap-align: start;
+        transition: transform 0.3s ease;
+      }
+
+      .skill-badge:hover {
+        transform: scale(1.1);
+      }
+
+      .contact-form {
+        max-width: 600px;
+        margin: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .contact-form input,
+      .contact-form textarea {
+        padding: 0.8rem 1rem;
+        border-radius: 8px;
+        border: none;
+        font-size: 1rem;
+      }
+
+      .contact-form input::placeholder,
+      .contact-form textarea::placeholder {
+        color: #aaa;
+      }
+
+      .contact-form button {
+        align-self: flex-start;
+        background-color: #ff758c;
+        border: none;
+        padding: 0.8rem 1.5rem;
+        border-radius: 8px;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background 0.3s ease;
+      }
+
+      .contact-form button:hover {
+        background-color: #ff5e6c;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(-20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      footer {
+        text-align: center;
+        padding: 2rem;
+        background: #1f1c2c;
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <div class="logo">Onkar.dev</div>
+      <div>
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#interview">Interview</a>
+        <a href="#study">Study</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <button class="toggle-btn" onclick="toggleTheme()">🌗</button>
+    </nav>
+
+    <section id="home" class="hero">
+      <h1>Hi, I'm <span class="highlight">Onkar Sawant</span></h1>
+      <p class="typing-text" id="typing"></p>
+      <a href="#projects" class="cta">View My Work</a>
+    </section>
+
+    <section id="about" class="about">
+      <h2 class="section-title">About Me</h2>
+      <p style="max-width: 700px; margin: auto; text-align: center">
+        I'm a passionate frontend developer who loves building interactive and
+        animated websites using JavaScript, HTML, and CSS. I enjoy learning and
+        sharing knowledge about the frontend ecosystem.
+      </p>
+    </section>
+
+    <section id="skills" class="skills">
+      <h2 class="section-title">Skills</h2>
+      <div class="skills-container">
+        <div class="skill-badge">HTML5</div>
+        <div class="skill-badge">CSS3</div>
+        <div class="skill-badge">JavaScript</div>
+        <div class="skill-badge">React</div>
+        <div class="skill-badge">Tailwind CSS</div>
+        <div class="skill-badge">Git</div>
+        <div class="skill-badge">GSAP</div>
+        <div class="skill-badge">Framer Motion</div>
+        <div class="skill-badge">Responsive Design</div>
+        <div class="skill-badge">API Integration</div>
+      </div>
+    </section>
+
+    <section id="projects" class="projects">
+      <h2 class="section-title">Projects</h2>
+      <div class="project-grid">
+        <div class="project-card" onclick="openModal('Project 1')">
+          Project 1
+        </div>
+        <div class="project-card" onclick="openModal('Project 2')">
+          Project 2
+        </div>
+        <div class="project-card" onclick="openModal('Project 3')">
+          Project 3
+        </div>
+      </div>
+    </section>
+
+    <section id="interview" class="interview">
+      <h2 class="section-title">Interview Q&A</h2>
+      <div class="qa-list">
+        <div class="qa-card">
+          <strong>What is a closure in JavaScript?</strong>
+          <p>
+            A closure gives you access to an outer function’s scope from an
+            inner function.
+          </p>
+        </div>
+        <div class="qa-card">
+          <strong>What is the event loop?</strong>
+          <p>
+            The event loop is what allows JavaScript to perform non-blocking
+            operations despite being single-threaded.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="study" class="study">
+      <h2 class="section-title">Study Material</h2>
+      <div class="study-grid">
+        <div class="study-card">
+          <strong>JavaScript Essentials</strong>
+          <p>Promises, Async/Await, Fetch API, ES6+ features.</p>
+        </div>
+        <div class="study-card">
+          <strong>CSS Tricks</strong>
+          <p>Flexbox, Grid, Transitions, Animations, Responsive Design.</p>
+        </div>
+        <div class="study-card">
+          <strong>HTML Tips</strong>
+          <p>Semantic tags, Accessibility, Forms, Meta tags.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="contact">
+      <h2 class="section-title">Contact Me</h2>
+      <form class="contact-form">
+        <input type="text" name="name" placeholder="Your Name" required />
+        <input type="email" name="email" placeholder="Your Email" required />
+        <textarea
+          name="message"
+          rows="5"
+          placeholder="Your Message"
+          required
+        ></textarea>
+        <button type="submit">Send Message</button>
+      </form>
+    </section>
+
+    <footer>
+      <p>Made with ❤️ by Onkar Sawant</p>
+      <p>
+        <a
+          href="mailto:onkar@example.com"
+          style="color: #ccc; text-decoration: none"
+          >📧 Contact Me</a
+        >
+      </p>
+    </footer>
+
+    <script>
+      const text = "Frontend Developer | JavaScript Enthusiast";
+      const typingEl = document.getElementById("typing");
+      let index = 0;
+      function typeEffect() {
+        if (index < text.length) {
+          typingEl.innerHTML += text.charAt(index);
+          index++;
+          setTimeout(typeEffect, 100);
+        }
+      }
+      window.onload = typeEffect;
+      function toggleTheme() {
+        document.body.classList.toggle("dark-mode");
+      }
+      const sections = document.querySelectorAll("section");
+      const revealOnScroll = () => {
+        const triggerBottom = window.innerHeight * 0.85;
+        sections.forEach((section) => {
+          const boxTop = section.getBoundingClientRect().top;
+          if (boxTop < triggerBottom) {
+            section.classList.add("visible");
+          }
+        });
+      };
+      window.addEventListener("scroll", revealOnScroll);
+      window.addEventListener("load", revealOnScroll);
+      function openModal(projectName) {
+        alert(`More details about ${projectName} will go here.`);
+      }
+    </script>
+  </body>
+</html>
